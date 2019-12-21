@@ -4,18 +4,24 @@
  * and open the template in the editor.
  */
 package MainPOS;
+import DbConn.DbConn;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
  * @author IT-Laotelecom
  */
 public class mainpos1 extends javax.swing.JFrame {
-
+     Connection C=DbConn.getConn();
     /**
      * Creates new form mainpos1
      */
     public mainpos1() {
-        initComponents();
+     
+         initComponents();
+        
        
     }
 
@@ -34,6 +40,7 @@ public class mainpos1 extends javax.swing.JFrame {
         product_label = new javax.swing.JLabel();
         catagory_label = new javax.swing.JLabel();
         POS_label = new javax.swing.JLabel();
+        bill_label = new javax.swing.JLabel();
         about_label = new javax.swing.JLabel();
         exit_label = new javax.swing.JLabel();
         top_panel = new javax.swing.JPanel();
@@ -51,7 +58,7 @@ public class mainpos1 extends javax.swing.JFrame {
         save_btn = new javax.swing.JButton();
         update_btn = new javax.swing.JButton();
         delete_btn = new javax.swing.JButton();
-        price_btn = new javax.swing.JTextField();
+        price_field = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         product_table = new javax.swing.JTable();
@@ -87,6 +94,11 @@ public class mainpos1 extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         change_field = new javax.swing.JTextField();
+        bill_panel = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         about_panel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -124,7 +136,7 @@ public class mainpos1 extends javax.swing.JFrame {
                 product_labelMouseExited(evt);
             }
         });
-        menu_panel.add(product_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 104, 148, -1));
+        menu_panel.add(product_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 140, -1));
 
         catagory_label.setBackground(new java.awt.Color(255, 255, 255));
         catagory_label.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
@@ -144,7 +156,7 @@ public class mainpos1 extends javax.swing.JFrame {
                 catagory_labelMouseExited(evt);
             }
         });
-        menu_panel.add(catagory_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 172, 148, -1));
+        menu_panel.add(catagory_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, -1));
 
         POS_label.setBackground(new java.awt.Color(255, 255, 255));
         POS_label.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
@@ -164,7 +176,27 @@ public class mainpos1 extends javax.swing.JFrame {
                 POS_labelMouseExited(evt);
             }
         });
-        menu_panel.add(POS_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 244, 148, -1));
+        menu_panel.add(POS_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 140, -1));
+
+        bill_label.setBackground(new java.awt.Color(255, 255, 255));
+        bill_label.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
+        bill_label.setForeground(new java.awt.Color(51, 51, 51));
+        bill_label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bill_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill (1).png"))); // NOI18N
+        bill_label.setText("        ໃບບິນ");
+        bill_label.setOpaque(true);
+        bill_label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bill_labelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                bill_labelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                bill_labelMouseExited(evt);
+            }
+        });
+        menu_panel.add(bill_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, -1));
 
         about_label.setBackground(new java.awt.Color(255, 255, 255));
         about_label.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
@@ -184,7 +216,7 @@ public class mainpos1 extends javax.swing.JFrame {
                 about_labelMouseExited(evt);
             }
         });
-        menu_panel.add(about_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 306, 148, 35));
+        menu_panel.add(about_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 140, 35));
 
         exit_label.setBackground(new java.awt.Color(255, 255, 255));
         exit_label.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
@@ -204,7 +236,7 @@ public class mainpos1 extends javax.swing.JFrame {
                 exit_labelMouseExited(evt);
             }
         });
-        menu_panel.add(exit_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 367, 148, -1));
+        menu_panel.add(exit_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 140, -1));
 
         top_panel.setBackground(new java.awt.Color(51, 51, 51));
         top_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -238,6 +270,11 @@ public class mainpos1 extends javax.swing.JFrame {
 
         save_btn.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
         save_btn.setText("ບັນທຶກ");
+        save_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save_btnActionPerformed(evt);
+            }
+        });
 
         update_btn.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
         update_btn.setText("ແກ້ໄຂ");
@@ -245,7 +282,7 @@ public class mainpos1 extends javax.swing.JFrame {
         delete_btn.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
         delete_btn.setText("ລຶບ");
 
-        price_btn.setFont(new java.awt.Font("Phetsarath OT", 0, 12)); // NOI18N
+        price_field.setFont(new java.awt.Font("Phetsarath OT", 0, 12)); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
         jLabel16.setText("ລາຄາສິນຄ້າ:");
@@ -272,7 +309,7 @@ public class mainpos1 extends javax.swing.JFrame {
                     .addComponent(product_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(barcode_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(catagory_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(price_btn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(price_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -316,7 +353,7 @@ public class mainpos1 extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(price_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(price_field, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16))
                         .addContainerGap(12, Short.MAX_VALUE))))
         );
@@ -347,11 +384,12 @@ public class mainpos1 extends javax.swing.JFrame {
                 .addGroup(product_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(product_panelLayout.createSequentialGroup()
                         .addGap(292, 292, 292)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(242, 242, 242))
                     .addGroup(product_panelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(58, 58, 58))
+                .addGap(168, 168, 168))
         );
         product_panelLayout.setVerticalGroup(
             product_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,7 +498,8 @@ public class mainpos1 extends javax.swing.JFrame {
                 .addGroup(catagory_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(catagory_panelLayout.createSequentialGroup()
                         .addGap(300, 300, 300)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                        .addGap(336, 336, 336))
                     .addGroup(catagory_panelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -580,7 +619,7 @@ public class mainpos1 extends javax.swing.JFrame {
                         .addComponent(deletePOS_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pay_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,11 +663,10 @@ public class mainpos1 extends javax.swing.JFrame {
         POS_panel.setLayout(POS_panelLayout);
         POS_panelLayout.setHorizontalGroup(
             POS_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4)
-            .addGroup(POS_panelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, POS_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         POS_panelLayout.setVerticalGroup(
             POS_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,6 +677,56 @@ public class mainpos1 extends javax.swing.JFrame {
         );
 
         show_panel.add(POS_panel, "card4");
+
+        bill_panel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel18.setFont(new java.awt.Font("Phetsarath OT", 1, 18)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("ໃບບີນສີນຄ້າ");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
+        jButton1.setText("ລຶບ");
+
+        javax.swing.GroupLayout bill_panelLayout = new javax.swing.GroupLayout(bill_panel);
+        bill_panel.setLayout(bill_panelLayout);
+        bill_panelLayout.setHorizontalGroup(
+            bill_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bill_panelLayout.createSequentialGroup()
+                .addGap(323, 323, 323)
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addGap(371, 371, 371))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bill_panelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
+        );
+        bill_panelLayout.setVerticalGroup(
+            bill_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bill_panelLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
+        );
+
+        show_panel.add(bill_panel, "card6");
 
         about_panel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -657,12 +745,14 @@ public class mainpos1 extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(323, 323, 323)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(323, 323, 323)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(362, 362, 362)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -698,14 +788,14 @@ public class mainpos1 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(menu_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(show_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE))
+                .addComponent(show_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(top_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menu_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menu_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(show_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -728,6 +818,7 @@ public class mainpos1 extends javax.swing.JFrame {
         catagory_panel.setVisible(false);
         POS_panel.setVisible(false);
         about_panel.setVisible(false);
+        bill_panel.setVisible(false);
     }//GEN-LAST:event_product_labelMouseClicked
 
     private void product_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_labelMouseEntered
@@ -745,6 +836,7 @@ public class mainpos1 extends javax.swing.JFrame {
         catagory_panel.setVisible(true);
         POS_panel.setVisible(false);
         about_panel.setVisible(false);
+        bill_panel.setVisible(false);
     }//GEN-LAST:event_catagory_labelMouseClicked
 
     private void catagory_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catagory_labelMouseEntered
@@ -762,6 +854,7 @@ public class mainpos1 extends javax.swing.JFrame {
         catagory_panel.setVisible(false);
         POS_panel.setVisible(true);
         about_panel.setVisible(false);
+        bill_panel.setVisible(false);
     }//GEN-LAST:event_POS_labelMouseClicked
 
     private void POS_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_POS_labelMouseEntered
@@ -779,6 +872,7 @@ public class mainpos1 extends javax.swing.JFrame {
         catagory_panel.setVisible(false);
         POS_panel.setVisible(false);
         about_panel.setVisible(true);
+        bill_panel.setVisible(false);
     }//GEN-LAST:event_about_labelMouseClicked
 
     private void about_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_about_labelMouseEntered
@@ -804,8 +898,44 @@ public class mainpos1 extends javax.swing.JFrame {
         exit_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout.png")));
         exit_label.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_exit_labelMouseExited
+
+    private void save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_btnActionPerformed
+        insert_product();
+    }//GEN-LAST:event_save_btnActionPerformed
+
+    private void bill_labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_labelMouseClicked
+        product_panel.setVisible(false);
+        catagory_panel.setVisible(false);
+        POS_panel.setVisible(false);
+        about_panel.setVisible(false);
+        bill_panel.setVisible(true);
+    }//GEN-LAST:event_bill_labelMouseClicked
+
+    private void bill_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_labelMouseEntered
+        bill_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill.png")));
+        bill_label.setBackground(new java.awt.Color(204,204,204));
+    }//GEN-LAST:event_bill_labelMouseEntered
+
+    private void bill_labelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_labelMouseExited
+        bill_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill (1).png")));
+        bill_label.setBackground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_bill_labelMouseExited
+        public void insert_product(){
+            try {
+             String sql="insert into tb_product (barcode,product_Name,price,amount,catagory_ID) values(?,?,?,?,?)";
              
-    
+            PreparedStatement ps = C.prepareStatement(sql);
+            ps.setString(1, barcode_field.getText());
+            ps.setString(2, product_field.getText());
+            ps.setString(3, price_field.getText());
+            ps.setString(4, balance_field.getText());
+            ps.setString(5, catagory_field.getText());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }     
+   
                                                                           
     
                                
@@ -855,6 +985,8 @@ public class mainpos1 extends javax.swing.JFrame {
     private javax.swing.JTextField balance_field;
     private javax.swing.JTextField balance_field2;
     private javax.swing.JTextField barcode_field;
+    private javax.swing.JLabel bill_label;
+    private javax.swing.JPanel bill_panel;
     private javax.swing.JTextField catagory_field;
     private javax.swing.JTextField catagory_field2;
     private javax.swing.JLabel catagory_label;
@@ -867,6 +999,7 @@ public class mainpos1 extends javax.swing.JFrame {
     private javax.swing.JButton delete_btn1;
     private javax.swing.JLabel exit_label;
     private javax.swing.JLabel icon_label;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -876,6 +1009,7 @@ public class mainpos1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -889,13 +1023,15 @@ public class mainpos1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel menu_panel;
     private javax.swing.JButton pay_btn;
     private javax.swing.JTextField paycash_field;
-    private javax.swing.JTextField price_btn;
+    private javax.swing.JTextField price_field;
     private javax.swing.JTextField product_field;
     private javax.swing.JTextField product_field2;
     private javax.swing.JLabel product_label;

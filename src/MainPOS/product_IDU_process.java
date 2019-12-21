@@ -15,5 +15,20 @@ import DbConn.DbConn;
  */
 public class product_IDU_process extends mainpos1{
     Connection C = DbConn.getConn();
+     public void insert_product(String barcode,String product,String price,String balance,String catagory){
+            try {
+             String sql="insert into tb_product (barcode,product_Name,price,amount,catagory_ID) values(?,?,?,?,?)";
+             
+            PreparedStatement ps = C.prepareStatement(sql);
+            ps.setString(1,barcode);
+            ps.setString(2, product);
+            ps.setString(3, price);
+            ps.setString(4, balance);
+            ps.setString(5, catagory);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } 
    
 }

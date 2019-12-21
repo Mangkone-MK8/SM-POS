@@ -900,7 +900,14 @@ public class mainpos1 extends javax.swing.JFrame {
     }//GEN-LAST:event_exit_labelMouseExited
 
     private void save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_btnActionPerformed
-        insert_product();
+        String barcode = barcode_field.getText();
+        String product = product_field.getText();
+        String price = price_field.getText();
+        String balance = balance_field.getText();
+        String catagory = catagory_field.getText();
+        
+        product_IDU_process use =new product_IDU_process();
+        use.insert_product(barcode,product,price,balance,catagory);
     }//GEN-LAST:event_save_btnActionPerformed
 
     private void bill_labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_labelMouseClicked
@@ -920,21 +927,10 @@ public class mainpos1 extends javax.swing.JFrame {
         bill_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill (1).png")));
         bill_label.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_bill_labelMouseExited
-        public void insert_product(){
-            try {
-             String sql="insert into tb_product (barcode,product_Name,price,amount,catagory_ID) values(?,?,?,?,?)";
-             
-            PreparedStatement ps = C.prepareStatement(sql);
-            ps.setString(1, barcode_field.getText());
-            ps.setString(2, product_field.getText());
-            ps.setString(3, price_field.getText());
-            ps.setString(4, balance_field.getText());
-            ps.setString(5, catagory_field.getText());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+       
+        public void pos(){
+            
         }
-    }     
    
                                                                           
     

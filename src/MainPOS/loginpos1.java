@@ -7,14 +7,6 @@ package MainPOS;
 
 import DbConn.DbConn;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -136,49 +128,20 @@ public class loginpos1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        login();
+        String user= txtUser.getText();
+        String password=  String.valueOf(txtPass.getPassword());
+        
+        login_process login = new login_process();
+        if(login.acessProgram(user,password)==1){
+             this.dispose();
+         }
+        
+        txtUser.setText("");
+        txtPass.setText("");
+     
+ 
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    public int login(){
-        PreparedStatement ps;
-        int result=0;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try {
-               
-                ps = C.prepareStatement("select * from tb_user where user_Name=? and password=?");
-                ps.setString(1, txtUser.getText());
-                ps.setString(2, String.valueOf(txtPass.getPassword()));
-                ResultSet rs = ps.executeQuery();
-                
-                if(rs.next()){
-                    int role=Integer.parseInt(rs.getString("user_role"));
-                    setVisible(false);
-                    result=1;
-                    if(role==1){
-                        mainpos1 mp = new mainpos1();
-                        mp.setVisible(true);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "Sorry you cant access");
-                    }
-                }else{
-                    result=0;
-                    JOptionPane.showMessageDialog(this, "Incorect Username and Password");
-                    txtUser.setText("");
-                    txtPass.setText("");
-                    txtUser.requestFocus();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(loginpos1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(loginpos1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-        return result;
-    }
-    
     /**
      * @param args the command line arguments
      */

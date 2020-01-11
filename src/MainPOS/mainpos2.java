@@ -31,6 +31,10 @@ public class mainpos2 extends javax.swing.JFrame {
          pos_table5.getTableHeader().setFont(new Font("Phetsarath OT",Font.PLAIN,14){});
          order_bill2.getTableHeader().setFont(new Font("Phetsarath OT",Font.PLAIN,14){});
          ModelOrder5=(DefaultTableModel)order_bill2.getModel();
+         ModelPOS5 = (DefaultTableModel)pos_table5.getModel();
+         
+         price_field5.setEditable(false);
+         product_field5.setEditable(false);
     }
 
     /**
@@ -211,6 +215,11 @@ public class mainpos2 extends javax.swing.JFrame {
         ));
         pos_table5.setGridColor(new java.awt.Color(255, 255, 255));
         pos_table5.setRowHeight(20);
+        pos_table5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pos_table5KeyReleased(evt);
+            }
+        });
         jScrollPane4.setViewportView(pos_table5);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -623,27 +632,37 @@ public class mainpos2 extends javax.swing.JFrame {
 
     private void add_btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btn3ActionPerformed
         int sum=0;
+        
         String barcode=barcode_field5.getText();
         String price=price_field5.getText();
         String quantity=quantity_field5.getText();
         String product=product_field5.getText();
 
-        /*put data into adapter(defaultablemodel) then show data on jtable*/
-        pos_process pos_obj=new pos_process();
-        ModelPOS5 = (DefaultTableModel)pos_table5.getModel();
-        ModelPOS5.addRow((Object[]) pos_obj.pos_showdata(barcode,product,price,quantity));
+        if(barcode.equals("") || product.equals("") || price.equals("") || quantity.equals("")){
+             JOptionPane.showMessageDialog(this, "You have a blank field");
+        }else{
+             pos_process pos_obj=new pos_process();
+       
+             for(int k=0;k<pos_table5.getRowCount();k++){
+                 if(barcode.equals(pos_table5.getValueAt(k, 1))){
+                     ModelPOS5.removeRow(k);
+                    
+                }
+               }
+            ModelPOS5.addRow((Object[]) pos_obj.pos_showdata(barcode,product,price,quantity));
 
-        /*summation of all product in jtable*/
-        for(int i=0;i<pos_table5.getRowCount();i++){
-            sum=sum+Integer.parseInt(pos_table5.getValueAt(i, 5).toString());
+            /*summation of all product in jtable*/
+            for(int i=0;i<pos_table5.getRowCount();i++){
+                sum=sum+Integer.parseInt(pos_table5.getValueAt(i, 5).toString());
+            }
+            total_field5.setText(Integer.toString(sum));
+            
+            barcode_field5.setText("");
+            product_field5.setText("");
+            price_field5.setText("");
+            quantity_field5.setText("");
+
         }
-        total_field5.setText(Integer.toString(sum));
-
-        barcode_field5.setText("");
-        product_field5.setText("");
-        price_field5.setText("");
-        quantity_field5.setText("");
-
     }//GEN-LAST:event_add_btn3ActionPerformed
 
     private void pay_btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pay_btn3ActionPerformed
@@ -653,7 +672,8 @@ public class mainpos2 extends javax.swing.JFrame {
 
         if(receive<total){
             JOptionPane.showMessageDialog(this, "Your money isn't enough");
-        }else{
+        } 
+        else{
 
             pos_process pos=new pos_process();
             int balance=receive-total;
@@ -671,13 +691,19 @@ public class mainpos2 extends javax.swing.JFrame {
     }//GEN-LAST:event_pay_btn3ActionPerformed
 
     private void deletePOS_btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePOS_btn3ActionPerformed
-        ModelPOS5.removeRow(pos_table5.getSelectedRow());
-        int sum=0;
-        /*summation of all product in jtable*/
-        for(int i=0;i<pos_table5.getRowCount();i++){
-            sum=sum+Integer.parseInt(pos_table5.getValueAt(i, 5).toString());
+        int row =pos_table5.getSelectedRow();
+        if(row==-1){
+             JOptionPane.showMessageDialog(this, "You haven't chosen row");
+        }else{
+            ModelPOS5.removeRow(row);
+            int sum=0;
+            /*summation of all product in jtable*/
+            for(int i=0;i<pos_table5.getRowCount();i++){
+                sum=sum+Integer.parseInt(pos_table5.getValueAt(i, 5).toString());
+            }
+           total_field5.setText(Integer.toString(sum));
         }
-        total_field5.setText(Integer.toString(sum));
+        
     }//GEN-LAST:event_deletePOS_btn3ActionPerformed
 
     private void clear_btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_btn3ActionPerformed
@@ -699,6 +725,24 @@ public class mainpos2 extends javax.swing.JFrame {
        order_process bill=new order_process();
        bill.show_data(ModelOrder5);
     }//GEN-LAST:event_refreshbill_btn5ActionPerformed
+
+    private void pos_table5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pos_table5KeyReleased
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    int row=pos_table5.getSelectedRow();
+                
+                if(row==-1){
+                     JOptionPane.showMessageDialog(this, "You haven't chosen row");
+                }else{
+                    ModelPOS5.removeRow(row);
+                    int sum=0;
+                    /*summation of all product in jtable*/        
+                    for(int i=0;i<pos_table5.getRowCount();i++){
+                        sum=sum+Integer.parseInt(pos_table5.getValueAt(i, 5).toString());
+                    }
+                  total_field5.setText(Integer.toString(sum)); 
+                }
+        }
+    }//GEN-LAST:event_pos_table5KeyReleased
 
      
     /**

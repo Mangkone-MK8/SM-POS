@@ -41,7 +41,8 @@ public class mainpos1 extends javax.swing.JFrame {
          ModelOrder=(DefaultTableModel)order_bill.getModel();
          Modelcombox=(DefaultComboBoxModel)catagory_combo.getModel();
          
-         
+         price_field2.setEditable(false);
+         product_field2.setEditable(false);
     }
     
      
@@ -954,6 +955,9 @@ public class mainpos1 extends javax.swing.JFrame {
         POS_panel.setVisible(false);
         about_panel.setVisible(false);
         bill_panel.setVisible(false);
+        
+        product_IDU_process use =new product_IDU_process();
+        use.show_combo(Modelcombox);
     }//GEN-LAST:event_product_labelMouseClicked
 
     private void product_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_labelMouseEntered
@@ -1156,13 +1160,14 @@ public class mainpos1 extends javax.swing.JFrame {
 
     /*pay button in menu pos*/
     private void pay_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pay_btnActionPerformed
-        
+
             int receive=Integer.parseInt(receive_field2.getText());
             int total=Integer.parseInt(total_field2.getText());
         
             if(receive<total){
                 JOptionPane.showMessageDialog(this, "Your money isn't enough");
-            }else{        
+            }
+            else{        
                 
                 pos_process pos=new pos_process();
                 int balance=receive-total;

@@ -5,13 +5,11 @@
  */
 package MainPOS;
 import DbConn.DbConn;
-import java.sql.ResultSetMetaData;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -596,7 +594,7 @@ public class mainpos1 extends javax.swing.JFrame {
         pos_table.setFont(new java.awt.Font("Phetsarath OT", 1, 12)); // NOI18N
         pos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ລະຫັດ", "ບາໂຄດ", "ຊື່ສິນຄ້າ", "ລາຄາ", "ຈຳນວນ", "ລວມ"
@@ -604,6 +602,11 @@ public class mainpos1 extends javax.swing.JFrame {
         ));
         pos_table.setGridColor(new java.awt.Color(255, 255, 255));
         pos_table.setRowHeight(20);
+        pos_table.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pos_tableKeyReleased(evt);
+            }
+        });
         jScrollPane4.setViewportView(pos_table);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -1109,15 +1112,22 @@ public class mainpos1 extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(this, "You have a blank field");
         }
         else{
-            /*put data into adapter(defaultablemodel) then show data on jtable*/
-            pos_process pos_obj=new pos_process();
-            ModelPOS.addRow((Object[]) pos_obj.pos_showdata(barcode,product,price,quantity));
+             pos_process pos_obj=new pos_process();
 
+                 for(int k=0;k<pos_table.getRowCount();k++){
+                 if(barcode.equals(pos_table.getValueAt(k, 1))){
+                     ModelPOS.removeRow(k);
+                    
+                }
+               }
+             
+             ModelPOS.addRow((Object[]) pos_obj.pos_showdata(barcode,product,price,quantity));
+             
             /*summation of all product in jtable*/
             for(int i=0;i<pos_table.getRowCount();i++){
                 sum=sum+Integer.parseInt(pos_table.getValueAt(i, 5).toString());
             }
-              total_field2.setText(Integer.toString(sum)); 
+            total_field2.setText(Integer.toString(sum)); 
 
             barcode_field2.setText("");
             product_field2.setText("");
@@ -1339,6 +1349,24 @@ public class mainpos1 extends javax.swing.JFrame {
         order_process order=new order_process();
         order.show_data(ModelOrder);
     }//GEN-LAST:event_refreshbill_btnActionPerformed
+
+    private void pos_tableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pos_tableKeyReleased
+           if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    int row=pos_table.getSelectedRow();
+                
+                if(row==-1){
+                     JOptionPane.showMessageDialog(this, "You haven't chosen row");
+                }else{
+                    ModelPOS.removeRow(row);
+                    int sum=0;
+                    /*summation of all product in jtable*/        
+                    for(int i=0;i<pos_table.getRowCount();i++){
+                        sum=sum+Integer.parseInt(pos_table.getValueAt(i, 5).toString());
+                    }
+                  total_field2.setText(Integer.toString(sum)); 
+                }
+        }
+    }//GEN-LAST:event_pos_tableKeyReleased
       
    
                                                                                              

@@ -6,15 +6,11 @@
 package MainPOS;
 
 import DbConn.DbConn;
-import com.mysql.jdbc.Statement;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.awt.event.KeyEvent;
-import java.awt.print.PrinterException;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +29,8 @@ public class mainpos2 extends javax.swing.JFrame {
     public mainpos2() {
         initComponents();
          pos_table5.getTableHeader().setFont(new Font("Phetsarath OT",Font.PLAIN,14){});
-         order_bill2.getTableHeader().setFont(new Font("Phetsarath OT",Font.PLAIN,14) {});
+         order_bill2.getTableHeader().setFont(new Font("Phetsarath OT",Font.PLAIN,14){});
+         ModelOrder5=(DefaultTableModel)order_bill2.getModel();
     }
 
     /**
@@ -559,8 +556,6 @@ public class mainpos2 extends javax.swing.JFrame {
         about_panel2.setVisible(false);
         POS_panel2.setVisible(false);
         
-        order_process order=new order_process();
-        order.show_data(ModelOrder5);
     }//GEN-LAST:event_bill_labelMouseClicked
 
     private void bill_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_labelMouseEntered
@@ -701,8 +696,8 @@ public class mainpos2 extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void refreshbill_btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbill_btn5ActionPerformed
-       order_process order=new order_process();
-        order.show_data(ModelOrder5);
+       order_process bill=new order_process();
+       bill.show_data(ModelOrder5);
     }//GEN-LAST:event_refreshbill_btn5ActionPerformed
 
      

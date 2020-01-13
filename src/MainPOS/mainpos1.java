@@ -958,6 +958,7 @@ public class mainpos1 extends javax.swing.JFrame {
         
         product_IDU_process use =new product_IDU_process();
         use.show_combo(Modelcombox);
+        use.show_data(Modelproduct);
     }//GEN-LAST:event_product_labelMouseClicked
 
     private void product_labelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_labelMouseEntered
